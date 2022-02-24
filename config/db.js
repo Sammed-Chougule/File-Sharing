@@ -1,21 +1,20 @@
-
 require("dotenv").config();
 const mongoose = require("mongoose");
+const logger = require("../logger/createLogger");
 
-
-function connectDB(){
-    console.log("Connecting...")
-     mongoose.connect(process.env.MONGO_CONNECTION_URL,{useNewUrlParser:true,useUnifiedTopology:true}).then((conc)=>{
-        console.log("MongoDB Connected");
-    }).catch(err=>{
-        console.log(`Connection Failed `,err);
+function connectDB() {
+  logger.info("Connecting...");
+  mongoose
+    .connect(process.env.MONGO_CONNECTION_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     })
-    // const connection =mongoose.connection;
-
-    // connection.once("open",()=>{
-    //     console.log("database connected")
-    // })
-
+    .then((conc) => {
+      logger.info("MongoDB Connected");
+    })
+    .catch((err) => {
+      logger.info(`Connection Failed `, err);
+    });
 }
 
-module.exports=connectDB;
+module.exports = connectDB;
