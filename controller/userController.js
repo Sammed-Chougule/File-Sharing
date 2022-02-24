@@ -26,9 +26,8 @@ const fileUploader=async(req, res) => {
             `error occured while adding data:${JSON.stringify(err.err)}`
           );
       });
-      // return res.json({
-      //   file: `${process.env.APP_BASE_URL}/files/${response.uuid}`,
-      // });
+
+      
   }
 
 module.exports={fileUploader}
