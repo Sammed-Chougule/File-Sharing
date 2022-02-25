@@ -1,4 +1,8 @@
 .env
-node_modules
-/logger/info.log
+node_modules/
+*.log
+info.log
 error.log
+
+
+
