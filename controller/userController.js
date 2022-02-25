@@ -1,9 +1,10 @@
 const File = require("../models/fileModel");
 const { v4: uuidv4 } = require("uuid");
+const {USER_CONTROLLER} = require("../utils/constant")
 
 const fileUploader = async (req, res) => {
   if (!req.file) {
-    return res.json({ error: "All fields are required" });
+    return res.json({ error: USER_CONTROLLER.FILE_UPLOAD_ERROR_MSG});
   }
 
   //store to database
