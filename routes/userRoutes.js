@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const upload = require("../middleware/fileUploader");
+
 const { fileUploader } = require("../controller/userController");
+const upload = require("../middleware/fileUploader");
 
 router.post("/", upload, fileUploader);
 
