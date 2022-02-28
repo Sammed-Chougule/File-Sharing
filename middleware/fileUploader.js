@@ -1,6 +1,8 @@
 const multer = require("multer");
 const path = require("path");
 
+const { SIZE } = process.env;
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
   filename: (req, file, cb) => {
@@ -13,7 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limit: { fileSize: 1000000 * 100 },
+  limit: { fileSize: SIZE },
 }).single("file");
 
 module.exports = upload;
