@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const fileSchema = new Schema(
   {
-    filename: { type: String, required: true },
+    filename: { type: String, required: true, unique: true },
     path: { type: String, required: true },
     size: { type: Number, required: true },
     uuid: { type: String, required: true },
