@@ -17,15 +17,14 @@ const fileUploader = async (req, res) => {
     size: req.file.size,
   });
 
-  const response = await file
+  await file
     .save()
     .catch((err) => {
       logger.error(
         `error occured while adding data:${JSON.stringify(err.err)}`,
       );
     });
-  logger.info(response);
-  return 0;
+  return res.send();
 };
 
 module.exports = { fileUploader };
