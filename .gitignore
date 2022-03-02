@@ -1,8 +1,15 @@
 .env
 node_modules/
 *.log
-info.log
-error.log
+logger/info.log
+logger/error.log
+index.txt
 
+middleware/fileUploader.js
 
+.eslintrc.json
+config/db.js
+.gitignore
+.vscode/settings.json
 
+.eslintrc.json
