@@ -12,7 +12,7 @@ const connectDB = async () => {
       });
     logger.info("connected", con);
   } catch (err) {
-    throw new Error("connection failed");
+    throw new Error(err);
   }
 };
 
