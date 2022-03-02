@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 const logger = require("../logger/logger");
+const { MONGO_CONNECTION_URL } = require("../config/env");
 
 const connectDB = async () => {
   try {
     const con = await mongoose
-      .connect(process.env.MONGO_CONNECTION_URL, {
+      .connect(MONGO_CONNECTION_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });

@@ -1,9 +1,9 @@
 const express = require("express");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "/config/.env") });
+const { PORT } = require("./config/env");
 
 const app = express();
-const PORT = process.env.PORT || 3008;
 
 const logger = require("./logger/logger");
 
