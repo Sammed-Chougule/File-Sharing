@@ -1,8 +1,13 @@
 const { v4: uuidv4 } = require("uuid");
+const connectDB = require("../utils/db");
 
 const { USER_CONTROLLER } = require("../utils/constant");
 const File = require("../models/file");
 const logger = require("../logger/createLogger");
+
+connectDB().catch((error) => {
+  logger.error(error);
+});
 
 const fileUploader = async (req, res) => {
   try {
