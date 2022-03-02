@@ -3,7 +3,7 @@ const connectDB = require("../utils/db");
 
 const { USER_CONTROLLER } = require("../utils/constant");
 const File = require("../models/file");
-const logger = require("../logger/createLogger");
+const logger = require("../logger/logger");
 
 connectDB().catch((error) => {
   logger.error(error);

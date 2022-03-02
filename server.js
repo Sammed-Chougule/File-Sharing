@@ -5,7 +5,7 @@ require("dotenv").config({ path: path.join(__dirname, "/config/.env") });
 const app = express();
 const PORT = process.env.PORT || 3008;
 
-const logger = require("./logger/createLogger");
+const logger = require("./logger/logger");
 
 app.use("/api/files", require("./routes/userRoutes"));
 
