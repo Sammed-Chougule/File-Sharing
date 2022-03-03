@@ -18,6 +18,11 @@
         "quotes": [
             "error",
             "double"
-        ]
+        ],
+        "no-trailing-spaces": [
+            "error",
+             { "ignoreComments": true }
+            ]
+        
     }
 }
