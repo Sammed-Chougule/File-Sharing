@@ -1,5 +1,5 @@
 // TODO: change name
-const { v4: uuidv4 } = require("uuid");
+const { v4: uniqueStart } = require("uuid");
 
 const { USER_CONTROLLER } = require("../utils/constant");
 const File = require("../models/file");
@@ -15,12 +15,12 @@ const fileUploader = async (req, res) => {
     }
 
     // TODO 3. Comment should start with capital letter
-    // store to database
+    // Store to database
 
     // TODO 4. Move database function to a helper file
     const file = new File({
       filename: req.file.filename,
-      uuid: uuidv4(),
+      uuid: uniqueStart(),
       path: req.file.path,
       size: req.file.size,
     });
