@@ -1,8 +1,11 @@
+// TODO: change name
 const { v4: uuidv4 } = require("uuid");
 
 const { USER_CONTROLLER } = require("../utils/constant");
 const File = require("../models/file");
 const logger = require("../utils/logger");
+
+// TODO devDependencies, dependencies
 
 const fileUploader = async (req, res) => {
   try {
