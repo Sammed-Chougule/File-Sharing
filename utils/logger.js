@@ -3,6 +3,7 @@ const winston = require("winston");
 
 const { createLogger, transports } = require("winston");
 
+// TODO 6 update logger path
 const logger = createLogger({
   transports: [
     new transports.File({

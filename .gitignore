@@ -1,8 +1,5 @@
 .env
 node_modules/
-*.log
 info.log
 error.log
-
-
-
+logs

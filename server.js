@@ -4,7 +4,7 @@ const connectDB = require("./utils/db");
 
 const app = express();
 
-const logger = require("./logger/logger");
+const logger = require("./utils/logger");
 
 app.use("/api/files", require("./routes/userRoutes"));
 
