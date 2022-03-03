@@ -17,12 +17,9 @@ const fileUploader = async (req, res) => {
       size: req.file.size,
     });
 
-    await file
-      .save();
+    await file.save();
   } catch (err) {
-    logger.error(
-      `error occured while adding data:${JSON.stringify(err.err)}`,
-    );
+    logger.error(`error occured while adding data:${JSON.stringify(err.err)}`);
   }
   return res.send();
 };
