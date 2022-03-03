@@ -7,11 +7,11 @@ const { createLogger, transports } = require("winston");
 const logger = createLogger({
   transports: [
     new transports.File({
-      filename: path.join(__dirname, "info.log"),
+      filename: path.join(__dirname, "logs/info.log"),
       level: "info",
     }),
     new transports.File({
-      filename: path.join(__dirname, "error.log"),
+      filename: path.join(__dirname, "logs/error.log"),
       level: "error",
     }),
     new transports.Console(),
