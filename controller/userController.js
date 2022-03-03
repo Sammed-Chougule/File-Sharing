@@ -1,13 +1,8 @@
 const { v4: uuidv4 } = require("uuid");
-const connectDB = require("../utils/db");
 
 const { USER_CONTROLLER } = require("../utils/constant");
 const File = require("../models/file");
-const logger = require("../logger/createLogger");
-
-connectDB().catch((error) => {
-  logger.error(error);
-});
+const logger = require("../logger/logger");
 
 const fileUploader = async (req, res) => {
   try {
@@ -22,12 +17,9 @@ const fileUploader = async (req, res) => {
       size: req.file.size,
     });
 
-    await file
-      .save();
+    await file.save();
   } catch (err) {
-    logger.error(
-      `error occured while adding data:${JSON.stringify(err.err)}`,
-    );
+    logger.error(`error occured while adding data:${JSON.stringify(err.err)}`);
   }
   return res.send();
 };
