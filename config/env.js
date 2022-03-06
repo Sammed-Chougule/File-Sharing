@@ -1,12 +1,7 @@
 const dotenv = require("dotenv");
 const path = require("path");
 
-const pathName = path.resolve(__dirname, `${process.env.NODE_ENV?.trim()}.env`);
-
-dotenv.config({
-  path: pathName,
-});
-
+dotenv.config({ path: path.join(__dirname, ".env") });
 // 1. add default
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || "development",
