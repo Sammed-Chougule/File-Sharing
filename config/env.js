@@ -8,4 +8,5 @@ module.exports = {
   MONGO_CONNECTION_URL: process.env.MONGO_CONNECTION_URL,
   SIZE: process.env.SIZE || 1000000 * 100,
   PORT: process.env.PORT || 3010,
+  ACCESS_TOKEN: process.env.ACCESS_TOKEN,
 };

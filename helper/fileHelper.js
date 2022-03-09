@@ -10,7 +10,6 @@ const saveFile = async (req) => {
       path: req.file.path,
       size: req.file.size,
     });
-
     file.save();
     return file;
   } catch (error) {

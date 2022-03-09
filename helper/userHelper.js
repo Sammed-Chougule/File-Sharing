@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const generateToken = require("../utils/generateToken");
 const logger = require("../utils/logger");
 
 const registerHelper = async (req, res) => {
@@ -36,7 +37,11 @@ const loginHelper = async (req, res) => {
     const storedPass = foundUser[0].password;
     const passwordMatch = await bcrypt.compare(submittedPass, storedPass);
     if (passwordMatch) {
-      res.json({ msg: "login successfull" });
+      res.json({
+        name: foundUser[0].name,
+        userName: foundUser[0].userName,
+        token: generateToken(foundUser[0].userName),
+      });
     } else {
       res.json({ msg: "Invalid username or password" });
     }
