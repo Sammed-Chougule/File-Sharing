@@ -1,12 +1,8 @@
-const { validationResult } = require("express-validator");
+/* eslint-disable consistent-return */
 const { registerHelper, loginHelper } = require("../helper/userHelper");
 
 const userRegister = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     registerHelper(req, res);
   } catch (error) {
     return res.status(400).json({ error });

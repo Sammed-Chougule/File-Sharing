@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const generateToken = require("../utils/generateToken");
 const logger = require("../utils/logger");
+const userFind = require("../utils/userFind");
 
 const registerHelper = async (req, res) => {
   try {
-    const { userName, email } = req.body;
-    const foundUser = await User.find({ $or: [{ userName }, { email }] });
+    const foundUser = userFind;
     if (foundUser.length === 0) {
       const hashPassword = await bcrypt.hash(req.body.password, 10);
       User.create({
@@ -18,7 +18,6 @@ const registerHelper = async (req, res) => {
         email: req.body.email,
         password: hashPassword,
       });
-      await User.find({ $or: [{ userName }, { email }] });
 
       res
         .json({ msg: `Registration successful for :${req.body.name} ` })
@@ -46,7 +45,7 @@ const loginHelper = async (req, res) => {
         token: generateToken(foundUser[0].userName),
       });
     } else {
-      res.json({ msg: "Invalid username or password" });
+      res.json({ msg: "Password Dont match" });
     }
   } else {
     res.json({ msg: "User doesnt exist" });
