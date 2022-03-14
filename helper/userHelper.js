@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const generateToken = require("../utils/generateToken");
