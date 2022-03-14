@@ -1,21 +1,16 @@
-// TODO: change name
+/* eslint-disable consistent-return */
 const { USER_CONTROLLER } = require("../utils/constant");
 const { saveFile } = require("../helper/fileHelper");
 const logger = require("../utils/logger");
 
-// TODO devDependencies, dependencies
-
 const fileUploader = async (req, res) => {
   try {
-    // TODO 2. Space configuration in eslint,
     if (!req.file) {
       return res.json({ error: USER_CONTROLLER.FILE_UPLOAD_ERROR_MSG });
     }
 
-    // TODO 3. Comment should start with capital letter
     // store to database
     const fileData = await saveFile(req);
-    // TODO 4. Move database function to a helper file
 
     if (fileData) {
       logger.info("succesfully uploaded");
@@ -23,7 +18,6 @@ const fileUploader = async (req, res) => {
   } catch (err) {
     logger.error(`error occured while adding data:${err}`);
   }
-  return res.send();
 };
 
 module.exports = { fileUploader };
