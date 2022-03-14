@@ -19,9 +19,11 @@ const registerHelper = async (req, res) => {
       });
       await User.find({ $or: [{ userName }, { email }] });
 
-      res.json({ msg: "Registration successful" }).status(200);
+      res
+        .json({ msg: `Registration successful for :${req.body.name} ` })
+        .status(200);
     } else {
-      res.json({ err: "User already exist" }).status(409);
+      res.json({ err: `${req.body.name} already exist` }).status(409);
     }
   } catch (error) {
     logger.error(error);
@@ -46,7 +48,7 @@ const loginHelper = async (req, res) => {
       res.json({ msg: "Invalid username or password" });
     }
   } else {
-    res.json({ msg: "user doesnt exit" });
+    res.json({ msg: "User doesnt exist" });
   }
 };
 
