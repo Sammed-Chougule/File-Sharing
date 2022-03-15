@@ -13,27 +13,29 @@ const registerHelper = async (req, res) => {
     email: req.body.email,
   };
   try {
+    // Checking if user exist in database
     const { userName, email } = req.body;
     const foundUser = await User.find({ $or: [{ userName }, { email }] });
-    if (foundUser.length === 0) {
-      const hashPassword = await bcrypt.hash(req.body.password, 10);
-      User.create({
-        ...userData,
-        password: hashPassword,
-      });
-
+    if (foundUser.length !== 0) {
       return res
-        .json({
-          msg: "Registration successful for user ",
-          data: {
-            ...userData,
-          },
-        })
-        .status(200);
+        .status(409)
+        .json({ err: `User with userName ${req.body.userName} already exist` });
     }
-    return res
-      .status(409)
-      .json({ err: `User with userName ${req.body.userName} already exist` });
+
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    User.create({
+      ...userData,
+      password: hashPassword,
+    });
+
+    res
+      .json({
+        msg: "Registration successful for user ",
+        data: {
+          ...userData,
+        },
+      })
+      .status(200);
   } catch (error) {
     logger.error(`Error in userHelper:${error}`);
     return error;
@@ -48,7 +50,7 @@ const loginHelper = async (req, res) => {
     return res.status(400).send("userName not exist");
   }
 
-  const passwordCheck = passwordMatch(req, res);
+  const passwordCheck = await passwordMatch(req, res);
   if (!passwordCheck) return res.status(400).send("Password don't match");
   res.json({
     name: foundUser[0].name,
