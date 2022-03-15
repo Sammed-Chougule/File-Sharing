@@ -1,32 +1,41 @@
-/* eslint-disable consistent-return */
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-const generateToken = require("../utils/generateToken");
+const generateToken = require("../utils/auth");
 const logger = require("../utils/logger");
-const userFind = require("../utils/userFind");
+const { passwordMatch } = require("../utils/index");
 
 const registerHelper = async (req, res) => {
+  const userData = {
+    name: req.body.name,
+    gender: req.body.gender,
+    dob: req.body.dob,
+    userName: req.body.userName,
+    email: req.body.email,
+  };
   try {
-    const foundUser = userFind;
+    const { userName, email } = req.body;
+    const foundUser = await User.find({ $or: [{ userName }, { email }] });
     if (foundUser.length === 0) {
       const hashPassword = await bcrypt.hash(req.body.password, 10);
       User.create({
-        name: req.body.name,
-        gender: req.body.gender,
-        dob: req.body.dob,
-        userName: req.body.userName,
-        email: req.body.email,
+        ...userData,
         password: hashPassword,
       });
 
-      res
-        .json({ msg: `Registration successful for :${req.body.name} ` })
+      return res
+        .json({
+          msg: "Registration successful for user ",
+          data: {
+            ...userData,
+          },
+        })
         .status(200);
-    } else {
-      res.json({ err: `${req.body.name} already exist` }).status(409);
     }
+    return res
+      .status(409)
+      .json({ err: `User with userName ${req.body.userName} already exist` });
   } catch (error) {
-    logger.error(error);
+    logger.error(`Error in userHelper:${error}`);
     return error;
   }
 };
@@ -34,22 +43,17 @@ const registerHelper = async (req, res) => {
 const loginHelper = async (req, res) => {
   const { userName } = req.body;
   const foundUser = await User.find({ userName });
-  if (foundUser.length === 1) {
-    const submittedPass = req.body.password;
-    const storedPass = foundUser[0].password;
-    const passwordMatch = await bcrypt.compare(submittedPass, storedPass);
-    if (passwordMatch) {
-      res.json({
-        name: foundUser[0].name,
-        userName: foundUser[0].userName,
-        token: generateToken(foundUser[0].userName),
-      });
-    } else {
-      res.json({ msg: "Password Dont match" });
-    }
-  } else {
-    res.json({ msg: "User doesnt exist" });
-  }
-};
 
+  if (foundUser.length === 0) {
+    return res.status(400).send("userName not exist");
+  }
+
+  const passwordCheck = passwordMatch(req, res);
+  if (!passwordCheck) return res.status(400).send("Password don't match");
+  res.json({
+    name: foundUser[0].name,
+    userName: foundUser[0].userName,
+    token: generateToken(foundUser[0].userName),
+  });
+};
 module.exports = { registerHelper, loginHelper };

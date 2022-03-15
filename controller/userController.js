@@ -13,7 +13,7 @@ const userLogin = async (req, res) => {
   try {
     loginHelper(req, res);
   } catch (error) {
-    res.json({ msg: "Internal server error" });
+    return res.json({ msg: "Internal server error" });
   }
 };
 module.exports = { userRegister, userLogin };

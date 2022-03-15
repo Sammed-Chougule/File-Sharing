@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const { USER_CONTROLLER } = require("../utils/constant");
 const { saveFile } = require("../helper/fileHelper");
 const logger = require("../utils/logger");
@@ -9,7 +8,7 @@ const fileUploader = async (req, res) => {
       return res.json({ error: USER_CONTROLLER.FILE_UPLOAD_ERROR_MSG });
     }
 
-    // store to database
+    // Store to database
     const fileData = await saveFile(req);
 
     if (fileData) {
@@ -18,6 +17,7 @@ const fileUploader = async (req, res) => {
   } catch (err) {
     logger.error(`error occured while adding data:${err}`);
   }
+  return res.send();
 };
 
 module.exports = { fileUploader };

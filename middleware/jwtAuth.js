@@ -8,13 +8,8 @@ const auth = async (req, res, next) => {
       // eslint-disable-next-line prefer-destructuring
       token = req.headers.authorization[1];
     }
-    await jsonwebtoken.verify(token, ACCESS_TOKEN, (error, data) => {
-      if (error) {
-        res.json(error).status(402);
-      }
-      req.user = data;
-      next();
-    });
+    await jsonwebtoken.verify(token, ACCESS_TOKEN);
+    next();
   } catch (error) {
     res.json({ error });
   }
