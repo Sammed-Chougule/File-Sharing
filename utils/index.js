@@ -10,4 +10,15 @@ const passwordMatch = async (req) => {
   return bcrypt.compare(submittedPass, storedPass);
 };
 
-module.exports = { passwordMatch };
+const userInfo = async (req) => {
+  const userData = {
+    name: req.body.name,
+    gender: req.body.gender,
+    dob: req.body.dob,
+    userName: req.body.userName,
+    email: req.body.email,
+  };
+  return userData;
+};
+
+module.exports = { passwordMatch, userInfo };
