@@ -24,11 +24,11 @@ const loginSuccess = async (req, res) => {
   });
 };
 
-const registerSuccess = (req, res) => {
+const registerSuccess = async (req, res) => {
   res.status(200).json({
     msg: "Registration successful for user",
     data: {
-      ...userInfo(req),
+      ...(await userInfo(req)),
     },
   });
 };

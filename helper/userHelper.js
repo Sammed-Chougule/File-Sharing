@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const logger = require("../utils/logger");
@@ -14,12 +15,13 @@ const registerHelper = async (req, res) => {
     // Checking if user exist in database
     const { userName, email } = req.body;
     const foundUser = await User.find({ $or: [{ userName }, { email }] });
+    console.log(foundUser.length);
     if (foundUser.length !== 0) {
       return userExistErr(req, res);
     }
     const hashPassword = await bcrypt.hash(req.body.password, 10);
     User.create({
-      ...userInfo(req),
+      ...await userInfo(req),
       password: hashPassword,
     });
     registerSuccess(req, res);

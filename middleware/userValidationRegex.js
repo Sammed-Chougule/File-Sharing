@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const {
   nameFormatErr,
   confPasswordFormatErr,
@@ -15,8 +16,7 @@ const regex = (req, res, next) => {
     const dob = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
     const userName = /^[a-zA-Z ]{2,30}$/;
     const email = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-    const password =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+    const password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
     if (!name.test(req.body.name)) {
       return nameFormatErr(res);
