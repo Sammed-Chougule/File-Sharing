@@ -1,0 +1,6 @@
+.env
+node_modules/
+info.log
+error.log
+logs
+uploads
