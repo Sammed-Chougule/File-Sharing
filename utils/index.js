@@ -1,13 +1,12 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-const passwordMatch = async (req) => {
-  const { userName } = req.body;
+const passwordMatch = async (userName, password) => {
   const foundUser = await User.find({ userName });
-  const submittedPass = req.body.password;
+  const submittedPass = password;
   const storedPass = foundUser[0].password;
-
-  return bcrypt.compare(submittedPass, storedPass);
+  const flag = await bcrypt.compare(submittedPass, storedPass);
+  return flag;
 };
 
 const userInfo = async (req) => {

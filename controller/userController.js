@@ -1,10 +1,13 @@
 /* eslint-disable consistent-return */
 const { loginService, registerService } = require("../service/userService");
+const { userInfo } = require("../utils");
 const logger = require("../utils/logger");
 
 const userRegister = async (req, res) => {
   try {
-    registerService(req, res);
+    const userData = { ...(await userInfo(req)), password: req.body.password };
+
+    registerService(userData, res);
   } catch (error) {
     return logger.error(`Error in userRegisterController:${error}`);
   }
@@ -12,7 +15,8 @@ const userRegister = async (req, res) => {
 
 const userLogin = async (req, res) => {
   try {
-    loginService(req, res);
+    const { userName, password } = req.body;
+    loginService(userName, password, res);
   } catch (error) {
     return logger.error(`Error in userLoginController:${error}`);
   }

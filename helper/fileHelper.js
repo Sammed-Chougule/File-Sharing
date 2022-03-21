@@ -2,13 +2,13 @@ const { v4: uniqueStart } = require("uuid");
 const File = require("../models/file");
 const logger = require("../utils/logger");
 
-const saveFile = async (req) => {
+const saveFile = async (filename, path, size) => {
   try {
     const file = new File({
-      filename: req.file.filename,
+      filename,
       uuid: uniqueStart(),
-      path: req.file.path,
-      size: req.file.size,
+      path,
+      size,
     });
     file.save();
     return file;

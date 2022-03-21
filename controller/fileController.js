@@ -9,7 +9,11 @@ const fileUploader = async (req, res) => {
     }
 
     // Store to database
-    const fileData = await saveFile(req);
+    const fileData = await saveFile(
+      req.body.filename,
+      req.body.path,
+      req.body.size,
+    );
 
     if (fileData) {
       logger.info("succesfully uploaded");
