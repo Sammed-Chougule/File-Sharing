@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-// const index = require("../utils/index");
 
 const userCheck = async (userName) => User.find({ userName });
 
