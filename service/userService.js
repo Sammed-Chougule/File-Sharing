@@ -45,7 +45,7 @@ const registerService = async (userData, res) => {
     userHelper.userCreate(userData);
     responder(200, "Registration successful for user", res, userData);
   } catch (error) {
-    logger.error(`Error in registerHelper:${error}`);
+    logger.error(`Error in registerService:${error}`);
     return error;
   }
 };
