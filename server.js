@@ -8,6 +8,7 @@ const logger = require("./utils/logger");
 
 app.use(express.json());
 app.use("/user", require("./routes/userRoutes"));
+app.use("/file", require("./routes/fileRoutes"));
 
 connectDB().catch((error) => {
   logger.error(error);

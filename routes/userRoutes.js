@@ -1,12 +1,8 @@
 const router = require("express").Router();
 
-const { fileUploader } = require("../controller/fileController");
 const { userRegister, userLogin } = require("../controller/userController");
-const upload = require("../middleware/fileUploader");
-const auth = require("../middleware/jwtAuth");
-const regexUserValidation = require("../middleware/userValidationRegex");
 
-router.post("/upload", auth, upload, fileUploader);
+const regexUserValidation = require("../middleware/userValidationRegex");
 
 router.post("/login", userLogin);
 

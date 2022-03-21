@@ -2,32 +2,33 @@
 const index = require("../utils/index");
 const generateToken = require("../utils/auth");
 const logger = require("../utils/logger");
-const { responder } = require("../utils/responder");
 const userHelper = require("../helper/userHelper");
 
-const loginService = async (userName, password, res) => {
+const loginService = async (userName, password) => {
   try {
     const foundUser = await userHelper.userCheck(userName);
-
     if (foundUser.length === 0) {
-      return responder(400, "User doesn't exist", res);
+      throw new Error("User doesn't exist");
     }
 
     const passwordCheck = await index.passwordMatch(userName, password);
     if (!passwordCheck) {
-      return responder(401, res, "Password Don't Match");
+      throw new Error("Password Don't Match");
     }
-    responder(400, res, "Login successfull for user", {
+    const userData = {
       name: foundUser[0].name,
       userName: foundUser[0].userName,
       token: generateToken(foundUser[0].userName),
-    });
+    };
+
+    return userData;
   } catch (error) {
-    logger.error(`Error in loginHelper:${error}`);
+    logger.error(`Error in loginService:${error}`);
+    return new Error(error);
   }
 };
 
-const registerService = async (userData, res) => {
+const registerService = async (userData) => {
   try {
     // Checking if user exist in database
     const foundUser = await userHelper.userFind(
@@ -35,18 +36,14 @@ const registerService = async (userData, res) => {
       userData.email,
     );
     if (foundUser.length !== 0) {
-      return responder(
-        409,
-        `User with userName ${userData.userName} already exist`,
-        res,
-      );
+      throw new Error(`User with userName ${userData.userName} already exist`);
     }
     // Creating new user in Database
-    userHelper.userCreate(userData);
-    responder(200, "Registration successful for user", res, userData);
+    await userHelper.userCreate(userData);
+    return userData;
   } catch (error) {
     logger.error(`Error in registerService:${error}`);
-    return error;
+    return new Error(error);
   }
 };
 
