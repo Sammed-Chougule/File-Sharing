@@ -22,7 +22,10 @@
         "no-trailing-spaces": [
             "error",
              { "ignoreComments": true }
-            ]
+            ],
+
+        "comma-dangle": "off"
+        
         
     }
 }

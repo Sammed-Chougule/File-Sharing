@@ -8,4 +8,5 @@ module.exports = {
   SIZE: process.env.SIZE || 1000000 * 100,
   PORT: process.env.PORT || 3010,
   ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+  DEFAULT_EXPIRATION: process.env.DEFAULT_EXPIRATION || 3600
 };

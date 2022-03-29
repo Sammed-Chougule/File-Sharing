@@ -11,7 +11,7 @@ const userCreate = async (userData) => {
 
   return User.create({
     ...userData,
-    password: hashPassword,
+    password: hashPassword
   });
 };
 

@@ -4,10 +4,10 @@ const responder = (statusCode, message, res, data) => {
   }
   return res.status(statusCode).json({
     message,
-    data,
+    data
   });
 };
 
 module.exports = {
-  responder,
+  responder
 };
